@@ -12,6 +12,7 @@ typedef struct olvasok
     char nev[50];
     int szul;
     char lakc[100];
+    int ID;
     struct olvasok *kov;
 }olvasok;
 
@@ -22,5 +23,9 @@ void olv_felsz(olvasok *tomb);
 void olv_kereses(olvasok *p, konyvek *ptr);
 
 char *ujSorKi(char *str);
+
+char *kisBetu(char *str);
+
+void olv_torl(olvasok *lista);
 
 #endif

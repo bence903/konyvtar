@@ -11,5 +11,6 @@
 //konyvek *beo_konyv();
 void konyv_ki(konyvek *p);
 void olv_ki(olvasok *p);
+void reverse_print(olvasok *list, FILE *fp);
 
 #endif

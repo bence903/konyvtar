@@ -5,7 +5,7 @@
 
 #include "olvasok.h"
 #include "konyvek.h"
-
+#include "debugmalloc.h"
 
 
 char *ujSor_Ki(char *str){
@@ -38,7 +38,7 @@ olvasok *olv_hozza(olvasok *p){
     int n = 0, i;
     char nev[50];
     char lakc[100];
-
+    int olv_id = 1;
     olvasok *uj;
     uj = (olvasok*) malloc(sizeof(olvasok));
     uj->kov = p;
@@ -60,19 +60,60 @@ olvasok *olv_hozza(olvasok *p){
     strcpy(uj->nev, nev);
     strcpy(uj->lakc, lakc);
     uj->szul = i;
-    while (p != NULL)
+    while (p != NULL){
+        olv_id = p->ID + 1;
         p = p->kov;
+        
+    }
+    uj->ID = olv_id;
     p = uj;
 
     return p;
 }
 
+void olv_torl(olvasok *lista){
 
+    int n = 0;
+    olvasok *ptr;
+    ptr = lista;
+    char torNev[51];
+    char kisNev[51];
+    int szulev;
+    printf("\nOlvasó neve: ");
+    fgetc(stdin);
+    fgets(torNev, 50, stdin);
+    printf("\nSzületési éve: ");
+    scanf("%d",&szulev);
+    strcpy(torNev,ujSorKi(torNev));
+
+    
+    while (lista != NULL)
+    {
+        strcpy(kisNev,lista->nev);
+       if (strcmp(kisbetu(torNev),kisbetu(kisNev))==0 && szulev == lista->szul)
+        {
+            ptr->kov = lista->kov;
+            free(lista);
+            printf("\nA törlés sikeres volt!");
+            return;
+        }
+        else
+        {
+            ptr = lista;
+            lista = lista->kov;
+        }
+    }
+    printf("\nNincs ilyen elem!");
+    
+    
+}
 
 void olv_kereses(olvasok *p, konyvek *ptr){
 
     int n = 0, i;
-    char nev[50];
+    char nev[51];
+    char kisNev[51];
+    char kisNev2[51];
     printf("\nNév: ");
     fgetc(stdin);
     fgets(nev, 50, stdin);
@@ -82,12 +123,14 @@ void olv_kereses(olvasok *p, konyvek *ptr){
             
     while (p != NULL)
     {
-        if(strcmp(p->nev,nev)==0 && p->szul == i)
+        strcpy(kisNev, p->nev);
+        if(strcmp(kisBetu(kisNev),kisBetu(nev))==0 && p->szul == i)
         {
             printf("\n%s, %d, %s",p->nev,p->szul,p->lakc);
             while (ptr != NULL)
             {
-                if(strcmp(ptr->kolcs,nev)==0)
+                strcpy(kisNev2,ptr->kolcs);
+                if(strcmp(kisBetu(kisNev2),kisBetu(nev))==0)
                     printf("\n\t%s , %s, %d, %s",ptr->szerzo,ptr->cim,ptr->kiadas,ptr->tema);
                 ptr = ptr->kov;
             }
@@ -100,7 +143,10 @@ void olv_kereses(olvasok *p, konyvek *ptr){
 
 }
 
+void foglalas(olvasok *ptr,konyvek *list){
 
+    
+}
 
 // Ez a függvény felel az olvasok lista felszabadításáért
 void olv_felsz(olvasok *tomb){

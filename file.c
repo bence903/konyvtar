@@ -9,7 +9,28 @@
 #include "file.h"
 
 
-FILE *fp;
+void reverse_print(olvasok *list, FILE *fp) {
+   if(list == NULL) {
+      
+      return;
+   }
+   
+   reverse_print(list->kov,fp);
+   fprintf(fp,"%s;%d;%s;%d\n",list->nev,list->szul,list->lakc,list->ID);
+   
+}
+
+void reverse_print2(konyvek *list, FILE *fp) {
+   if(list == NULL) {
+      
+      return;
+   }
+   
+   reverse_print(list->kov,fp);
+   fprintf(fp,"%s;%s;%d;%s;%s\n",list->szerzo,list->cim,list->kiadas,list->tema,list->kolcs);
+   
+}
+
 
 /*konyvek *beo_konyv(){
     int n;
@@ -40,28 +61,23 @@ FILE *fp;
 
 void konyv_ki(konyvek *p){
 
+    FILE *fp;
+
     fp = fopen("konyvek.txt","w");
     
-    while (p != NULL)
-    {
-        fprintf(fp,"%s;%s;%d;%s;%s\n",p->szerzo,p->cim,p->kiadas,p->tema,p->kolcs);
-        p = p->kov;
-
-    }
+    reverse_print2(p,fp);
     fclose(fp);
 
 }
+
+
 
 void olv_ki(olvasok *p){
 
+    FILE *fp;
     fp = fopen("olvasok.txt","w");
-    
-    while (p != NULL)
-    {
-        fprintf(fp,"%s;%d;%s\n",p->nev,p->szul,p->lakc);
-        p = p->kov;
-
-    }
+    reverse_print(p,fp);
     fclose(fp);
 
 }
+

@@ -50,6 +50,7 @@ void menu(olvasok *olv, konyvek *konyv){
                     olv = olv_hozza(olv);
                     break;
                 case 2:
+                    olv_torl(olv);
                     break;
                 case 3:
                     olv_kereses(olv,konyv);
