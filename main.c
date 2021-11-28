@@ -20,8 +20,8 @@ int main(){
 
     olvasok *olv;
     konyvek *konyv;
-    olv = NULL;
-    konyv = NULL;
+    konyv = beo_konyv();
+    olv = beo_olv();
     menu(olv,konyv);
     return 0;
     

@@ -53,6 +53,7 @@ void konyv_kereses(konyvek *p,olvasok *ptr,int tip){
                         printf("%s",ptr->nev);
                         return;
                     }
+                    ptr = ptr->kov;
                     
                 }
                 
@@ -82,6 +83,7 @@ void konyv_kereses(konyvek *p,olvasok *ptr,int tip){
                         printf("%s",ptr->nev);
                         return;
                     }
+                    ptr = ptr->kov;
                     
                 }
                 
@@ -105,6 +107,7 @@ void konyv_kereses(konyvek *p,olvasok *ptr,int tip){
                         printf("%s",ptr->nev);
                         return;
                     }
+                    ptr = ptr->kov;
                     
                 }
                 
@@ -132,6 +135,7 @@ void konyv_kereses(konyvek *p,olvasok *ptr,int tip){
                         printf("%s",ptr->nev);
                         return;
                     }
+                    ptr = ptr->kov;
                     
                 }
                 
@@ -160,12 +164,14 @@ void olv_kereses(olvasok *p, konyvek *ptr){
         strcpy(kisNev, p->nev);
         if(strcmp(kisBetu(kisNev),kisBetu(nev))==0 && p->szul == i)
         {
-            printf("\n%s, %d, %s",p->nev,p->szul,p->lakc);
+            printf("\n%s, %d, %s, %d",p->nev,p->szul,p->lakc,p->ID);
             while (ptr != NULL)
             {
 
-                if(ptr->kolcs = p->ID)
+                if(ptr->kolcs == p->ID)
+                {
                     printf("\n\t%s , %s, %d, %s",ptr->szerzo,ptr->cim,ptr->kiadas,ptr->tema);
+                }
                 ptr = ptr->kov;
             }
             
@@ -203,17 +209,25 @@ void foglalas(konyvek *list){
     while (list != NULL){
         strcpy(kisSzer,list->szerzo);
         strcpy(kisCim,list->cim);
-        if (strcmp(kisBetu(kisSzer),kisBetu(fogSzer))==0 && strcmp(kisBetu(kisCim),kisBetu(fogCim))==0 && fogKiad && list->kolcs == 0)
+        if (strcmp(kisBetu(kisSzer),kisBetu(fogSzer))==0 && strcmp(kisBetu(kisCim),kisBetu(fogCim))==0 && fogKiad == list->kiadas && list->kolcs == 0)
         {
             list->kolcs = fogID;
             printf("\nKönyv lefoglalva");
             return;
         }
-        else if(list->kolcs != 0)
+        else if(strcmp(kisBetu(kisSzer),kisBetu(fogSzer))==0 && strcmp(kisBetu(kisCim),kisBetu(fogCim))==0 && fogKiad == list->kiadas && list->kolcs != 0)
         {
+            if (fogID == 0)
+            {
+                list->kolcs = fogID;
+                printf("\nFoglalás törölve!");
+                return;
+            }
+            
             printf("\nA könyv már le lett foglalva!");
             return;
         }
+        list = list->kov;
         
     }
     printf("\nNincs ilyen könyv!");
