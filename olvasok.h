@@ -21,4 +21,6 @@ void olv_felsz(olvasok *tomb);
 
 void olv_kereses(olvasok *p, konyvek *ptr);
 
+char *ujSorKi(char *str);
+
 #endif

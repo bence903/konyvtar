@@ -1,9 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "olvasok.h"
 #include "konyvek.h"
+
+
+
+char *ujSor_Ki(char *str){
+    int n = 0;
+    while (str[n] != '\0')
+    {
+        if (str[n] == '\n')
+            str[n] = '\0';
+        else
+            n++;
+        
+    }
+
+    return str;
+    
+}
+
+
 
  // Ez a függvény felel az új olvasók felvételére
 olvasok *olv_hozza(olvasok *p){
@@ -19,13 +39,7 @@ olvasok *olv_hozza(olvasok *p){
     fgetc(stdin);
 
     fgets(nev, 50, stdin);
-    while (nev[n]!='\0')
-    {
-        if (nev[n]=='\n')
-            nev[n]='\0';
-        else
-            n++;
-    }
+    strcpy(nev,ujSor_Ki(nev));
     
     printf("\nSzületési év: ");
     scanf("%d",&i);
@@ -33,13 +47,7 @@ olvasok *olv_hozza(olvasok *p){
     fgetc(stdin);
     fgets(lakc, 100, stdin);
     n = 0;
-    while (lakc[n]!='\0')
-    {
-        if (lakc[n]=='\n')
-            lakc[n]='\0';
-        else
-            n++;
-    }
+    strcpy(lakc,ujSor_Ki(lakc));
     
     strcpy(uj->nev, nev);
     strcpy(uj->lakc, lakc);
@@ -60,14 +68,7 @@ void olv_kereses(olvasok *p, konyvek *ptr){
     fgets(nev, 50, stdin);
     printf("\nSzületési év: ");
     scanf("%d",&i);
-    while (nev[n] != '\0')
-    {
-        if(nev[n] =='\n'){
-            nev[n] = '\0';
-        }
-        else
-            n++;
-    }
+    strcpy(nev,ujSor_Ki(nev));
             
     while (p != NULL)
     {
