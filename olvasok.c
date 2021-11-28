@@ -23,7 +23,15 @@ char *ujSor_Ki(char *str){
     
 }
 
-
+char *kisBetu(char *str){
+    int n = 0;
+    while (str[n] != '\0')
+    {
+        str[n] = tolower(str[n]);
+        n++;
+    }
+    return str;
+}
 
  // Ez a függvény felel az új olvasók felvételére
 olvasok *olv_hozza(olvasok *p){
@@ -58,6 +66,8 @@ olvasok *olv_hozza(olvasok *p){
 
     return p;
 }
+
+
 
 void olv_kereses(olvasok *p, konyvek *ptr){
 
