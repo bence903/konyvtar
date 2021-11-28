@@ -6,6 +6,8 @@
 
 #include "konyvek.h"
 
+struct konyvek;
+
 //Olvasók adatstruktúrája
 typedef struct olvasok
 {
@@ -20,12 +22,12 @@ olvasok *olv_hozza(olvasok *p);
 
 void olv_felsz(olvasok *tomb);
 
-void olv_kereses(olvasok *p, konyvek *ptr);
-
 char *ujSorKi(char *str);
 
 char *kisBetu(char *str);
 
 void olv_torl(olvasok *lista);
+
+
 
 #endif

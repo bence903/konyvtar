@@ -26,8 +26,8 @@ void reverse_print2(konyvek *list, FILE *fp) {
       return;
    }
    
-   reverse_print(list->kov,fp);
-   fprintf(fp,"%s;%s;%d;%s;%s\n",list->szerzo,list->cim,list->kiadas,list->tema,list->kolcs);
+   reverse_print2(list->kov,fp);
+   fprintf(fp,"%s;%s;%d;%s;%d\n",list->szerzo,list->cim,list->kiadas,list->tema,list->kolcs);
    
 }
 

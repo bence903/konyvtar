@@ -5,6 +5,7 @@
 
 #include "konyvek.h"
 #include "debugmalloc.h"
+#include "olvasok.h"
 
 
 char *ujSorKi(char *str){
@@ -39,7 +40,6 @@ konyvek *konyv_hozza(konyvek *p){
     char cim[101];
     char szerzo[51];
     char tema[21];
-    char kolcs[51];
 
     konyvek *uj;
     uj = (konyvek*) malloc(sizeof(konyvek));
@@ -61,11 +61,10 @@ konyvek *konyv_hozza(konyvek *p){
     fgetc(stdin);
     fgets(tema, 20, stdin);
     strcpy(tema,ujSorKi(tema));
-    strcpy(kolcs, " \0");
     strcpy(uj->cim,cim);
     strcpy(uj->szerzo,szerzo);
     strcpy(uj->tema,tema);
-    strcpy(uj->kolcs,kolcs);
+    uj->kolcs = 0;
     uj->kiadas = ev;
     while (p != NULL)
         p = p->kov;
@@ -136,77 +135,3 @@ void konyv_felsz(konyvek *tomb){
 
 // Könyvek keresése szempontok alapján
 
-void konyv_kereses(konyvek *p,int tip){
-
-    int n = 0;
-    char kisKer[101];
-    char kereses[101];
-    if(tip == 1){
-
-        printf("Keresés: ");
-        fgetc(stdin);
-        fgets(kereses, 100, stdin);
-        strcpy(kereses,ujSorKi(kereses));
-            
-        while (p != NULL)
-        {
-            strcpy(kisKer,p->cim);
-            if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0)
-            {
-                printf("\n%s, %s, %d, %s, %s",p->cim,p->szerzo,p->kiadas,p->tema,p->kolcs);
-                return;
-            }
-            p = p->kov;
-        }
-        printf("\nNincs ilyen könyv!");
-        
-    }
-    else if(tip == 2){
-        
-        printf("Keresés: ");
-        fgetc(stdin);
-        fgets(kereses, 100, stdin);
-        while (p != NULL)
-        {
-            strcpy(kisKer,p->szerzo);
-            if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0)
-            {
-                printf("\n%s, %s, %d, %s, %s",p->cim,p->szerzo,p->kiadas,p->tema,p->kolcs);
-                return;
-            }
-            p = p->kov;
-        }
-        printf("\nNincs ilyen könyv!");
-    }
-    else if(tip == 3){
-        printf("Keresés: ");
-        scanf("%d",&n);
-        while (p != NULL)
-        {
-            if(p->kiadas == n)
-            {
-                printf("\n%s, %s, %d, %s, %s",p->cim,p->szerzo,p->kiadas,p->tema,p->kolcs);
-                return;
-            }
-            p = p->kov;
-        }
-        printf("\nNincs ilyen könyv!");
-    }
-    else{
-
-        printf("Keresés: ");
-        fgetc(stdin);
-        fgets(kereses, 100, stdin);
-        while (p != NULL)
-        {
-            strcpy(kisKer,p->tema);
-            if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0)
-            {
-                printf("\n%s, %s, %d, %s, %s",p->cim,p->szerzo,p->kiadas,p->tema,p->kolcs);
-                return;
-            }
-            p = p->kov;
-        }
-        printf("\nNincs ilyen könyv!");
-    }
-}

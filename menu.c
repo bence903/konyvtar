@@ -13,6 +13,215 @@
 // adatmanipulációs függvények meghívásáért felelős
 
 // Megkapja a két listát és azokkal dolgozik
+char *UjSorKi(char *str){
+    int n = 0;
+    while (str[n] != '\0')
+    {
+        if (str[n] == '\n')
+            str[n] = '\0';
+        else
+            n++;
+        
+    }
+
+    return str;
+    
+}
+
+void konyv_kereses(konyvek *p,olvasok *ptr,int tip){
+
+    int n = 0;
+    char kisKer[101];
+    char kereses[101];
+    if(tip == 1){
+
+        printf("Keresés: ");
+        fgetc(stdin);
+        fgets(kereses, 100, stdin);
+        strcpy(kereses,UjSorKi(kereses));
+            
+        while (p != NULL)
+        {
+            strcpy(kisKer,p->cim);
+            if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0)
+            {
+                printf("\n%s, %s, %d, %s, ",p->cim,p->szerzo,p->kiadas,p->tema);
+                while (ptr != NULL)
+                {
+                    if (ptr->ID == p->kolcs)
+                    {
+                        printf("%s",ptr->nev);
+                        return;
+                    }
+                    
+                }
+                
+                return;
+            }
+            p = p->kov;
+        }
+        printf("\nNincs ilyen könyv!");
+        
+    }
+    else if(tip == 2){
+        
+        printf("Keresés: ");
+        fgetc(stdin);
+        fgets(kereses, 50, stdin);
+        strcpy(kereses,UjSorKi(kereses));
+        while (p != NULL)
+        {
+            strcpy(kisKer,p->szerzo);
+            if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0)
+            {
+                printf("\n%s, %s, %d, %s, ",p->cim,p->szerzo,p->kiadas,p->tema);
+                while (ptr != NULL)
+                {
+                    if (ptr->ID == p->kolcs)
+                    {
+                        printf("%s",ptr->nev);
+                        return;
+                    }
+                    
+                }
+                
+            }
+            p = p->kov;
+        }
+        printf("\nNincs ilyen könyv!");
+    }
+    else if(tip == 3){
+        printf("Keresés: ");
+        scanf("%d",&n);
+        while (p != NULL)
+        {
+            if(p->kiadas == n)
+            {
+                printf("\n%s, %s, %d, %s, ",p->cim,p->szerzo,p->kiadas,p->tema);
+                while (ptr != NULL)
+                {
+                    if (ptr->ID == p->kolcs)
+                    {
+                        printf("%s",ptr->nev);
+                        return;
+                    }
+                    
+                }
+                
+            }
+            p = p->kov;
+        }
+        //printf("\nNincs ilyen könyv!");
+    }
+    else{
+
+        printf("Keresés: ");
+        fgetc(stdin);
+        fgets(kereses, 21, stdin);
+        strcpy(kereses,UjSorKi(kereses));
+        while (p != NULL)
+        {
+            strcpy(kisKer,p->tema);
+            if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0)
+            {
+                printf("\n%s, %s, %d, %s, ",p->cim,p->szerzo,p->kiadas,p->tema);
+                while (ptr != NULL)
+                {
+                    if (ptr->ID == p->kolcs)
+                    {
+                        printf("%s",ptr->nev);
+                        return;
+                    }
+                    
+                }
+                
+            }
+            p = p->kov;
+        }
+        //printf("\nNincs ilyen könyv!");
+    }
+}
+
+void olv_kereses(olvasok *p, konyvek *ptr){
+
+    int n = 0, i;
+    char nev[51];
+    char kisNev[51];
+    char kisNev2[51];
+    printf("\nNév: ");
+    fgetc(stdin);
+    fgets(nev, 50, stdin);
+    printf("\nSzületési év: ");
+    scanf("%d",&i);
+    strcpy(nev,UjSorKi(nev));
+            
+    while (p != NULL)
+    {
+        strcpy(kisNev, p->nev);
+        if(strcmp(kisBetu(kisNev),kisBetu(nev))==0 && p->szul == i)
+        {
+            printf("\n%s, %d, %s",p->nev,p->szul,p->lakc);
+            while (ptr != NULL)
+            {
+
+                if(ptr->kolcs = p->ID)
+                    printf("\n\t%s , %s, %d, %s",ptr->szerzo,ptr->cim,ptr->kiadas,ptr->tema);
+                ptr = ptr->kov;
+            }
+            
+        }
+        p = p->kov;
+     }
+
+    
+
+}
+
+void foglalas(konyvek *list){
+
+    char fogCim[101];
+    char fogSzer[51];
+    char kisSzer[51];
+    char kisCim[101];
+    int fogEv;
+    int fogID;
+    int fogKiad;
+    printf("\nFoglalandó könyv adatai");
+    printf("\nKönyv címe: ");
+    fgetc(stdin);
+    fgets(fogCim, 100, stdin);
+    printf("\nSzerző neve: ");
+    fgets(fogSzer, 50, stdin);
+    printf("\nKiadás éve: ");
+    scanf("%d",&fogKiad);
+    strcpy(fogCim,UjSorKi(fogCim));
+    strcpy(fogSzer,UjSorKi(fogSzer));
+    printf("\nFoglaló adatai");
+    printf("\nID: ");
+    scanf("%d",&fogID);
+
+    while (list != NULL){
+        strcpy(kisSzer,list->szerzo);
+        strcpy(kisCim,list->cim);
+        if (strcmp(kisBetu(kisSzer),kisBetu(fogSzer))==0 && strcmp(kisBetu(kisCim),kisBetu(fogCim))==0 && fogKiad && list->kolcs == 0)
+        {
+            list->kolcs = fogID;
+            printf("\nKönyv lefoglalva");
+            return;
+        }
+        else if(list->kolcs != 0)
+        {
+            printf("\nA könyv már le lett foglalva!");
+            return;
+        }
+        
+    }
+    printf("\nNincs ilyen könyv!");
+
+    
+
+
+}
 
 void menu(olvasok *olv, konyvek *konyv){
 
@@ -56,6 +265,7 @@ void menu(olvasok *olv, konyvek *konyv){
                     olv_kereses(olv,konyv);
                     break;
                 case 4:
+                    foglalas(konyv);
                     break;
                 case 5:
                     break;
@@ -104,16 +314,16 @@ void menu(olvasok *olv, konyvek *konyv){
                         switch (m)
                         {
                             case 1:
-                                konyv_kereses(konyv,1);
+                                konyv_kereses(konyv,olv,1);
                                 break;
                             case 2:
-                                konyv_kereses(konyv,2);
+                                konyv_kereses(konyv,olv,2);
                                 break;
                             case 3:
-                                konyv_kereses(konyv,3);
+                                konyv_kereses(konyv,olv,3);
                                 break;
                             case 4:
-                                konyv_kereses(konyv,4);
+                                konyv_kereses(konyv,olv,4);
                                 break;
                             case 5:
                                 break;

@@ -10,6 +10,7 @@
 #include "olvasok.h"
 #include "menu.h"
 
+
 // A main-be fogja a program meghívni a többi modult
 // Egyelőre még csak az olvasók és a könyvek adatait tudja dinamikusan eltárolni a program
 

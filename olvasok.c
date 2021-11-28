@@ -108,45 +108,9 @@ void olv_torl(olvasok *lista){
     
 }
 
-void olv_kereses(olvasok *p, konyvek *ptr){
 
-    int n = 0, i;
-    char nev[51];
-    char kisNev[51];
-    char kisNev2[51];
-    printf("\nNév: ");
-    fgetc(stdin);
-    fgets(nev, 50, stdin);
-    printf("\nSzületési év: ");
-    scanf("%d",&i);
-    strcpy(nev,ujSor_Ki(nev));
-            
-    while (p != NULL)
-    {
-        strcpy(kisNev, p->nev);
-        if(strcmp(kisBetu(kisNev),kisBetu(nev))==0 && p->szul == i)
-        {
-            printf("\n%s, %d, %s",p->nev,p->szul,p->lakc);
-            while (ptr != NULL)
-            {
-                strcpy(kisNev2,ptr->kolcs);
-                if(strcmp(kisBetu(kisNev2),kisBetu(nev))==0)
-                    printf("\n\t%s , %s, %d, %s",ptr->szerzo,ptr->cim,ptr->kiadas,ptr->tema);
-                ptr = ptr->kov;
-            }
-            
-        }
-        p = p->kov;
-     }
 
-    
 
-}
-
-void foglalas(olvasok *ptr,konyvek *list){
-
-    
-}
 
 // Ez a függvény felel az olvasok lista felszabadításáért
 void olv_felsz(olvasok *tomb){
