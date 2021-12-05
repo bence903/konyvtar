@@ -39,7 +39,7 @@ void konyv_kereses(konyvek *p,olvasok *ptr,int tip){
         fgetc(stdin);
         fgets(kereses, 100, stdin);
         strcpy(kereses,UjSorKi(kereses));
-            
+        //switch
         while (p != NULL)
         {
             strcpy(kisKer,p->cim);
@@ -114,7 +114,7 @@ void konyv_kereses(konyvek *p,olvasok *ptr,int tip){
             }
             p = p->kov;
         }
-        //printf("\nNincs ilyen könyv!");
+
     }
     else{
 
@@ -142,7 +142,7 @@ void konyv_kereses(konyvek *p,olvasok *ptr,int tip){
             }
             p = p->kov;
         }
-        //printf("\nNincs ilyen könyv!");
+
     }
 }
 

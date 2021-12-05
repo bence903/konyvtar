@@ -12,9 +12,7 @@
 
 
 // A main-be fogja a program meghívni a többi modult
-// Egyelőre még csak az olvasók és a könyvek adatait tudja dinamikusan eltárolni a program
 
-// A végleges programban fog szerepelni fájlkezelés illetve lehetőség lesz az adatok törlésére és keresésére is
 
 int main(){
 
