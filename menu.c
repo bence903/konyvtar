@@ -28,122 +28,53 @@ char *UjSorKi(char *str){
     
 }
 
+void ID_ki(olvasok *ptr, int iD){
+    while (ptr != NULL)
+        {
+            if (ptr->ID == iD)
+            {
+                printf("\n\t%s",ptr->nev);
+                return;
+            }
+            ptr = ptr->kov;
+                    
+        }
+}
+
 void konyv_kereses(konyvek *p,olvasok *ptr,int tip){
 
     int n = 0;
     char kisKer[101];
     char kereses[101];
-    if(tip == 1){
-
-        printf("Keresés: ");
+    printf("Keresés: ");
+    if (tip == 1 && tip == 2 && tip == 4)
+    {
         fgetc(stdin);
         fgets(kereses, 100, stdin);
         strcpy(kereses,UjSorKi(kereses));
-        //switch
-        while (p != NULL)
-        {
-            strcpy(kisKer,p->cim);
-            if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0)
-            {
-                printf("\n%s, %s, %d, %s, ",p->cim,p->szerzo,p->kiadas,p->tema);
-                while (ptr != NULL)
-                {
-                    if (ptr->ID == p->kolcs)
-                    {
-                        printf("%s",ptr->nev);
-                        return;
-                    }
-                    ptr = ptr->kov;
-                    
-                }
-                
-                return;
-            }
-            p = p->kov;
-        }
-        printf("\nNincs ilyen könyv!");
-        
     }
-    else if(tip == 2){
-        
-        printf("Keresés: ");
-        fgetc(stdin);
-        fgets(kereses, 50, stdin);
-        strcpy(kereses,UjSorKi(kereses));
-        while (p != NULL)
-        {
-            strcpy(kisKer,p->szerzo);
-            if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0)
-            {
-                printf("\n%s, %s, %d, %s, ",p->cim,p->szerzo,p->kiadas,p->tema);
-                while (ptr != NULL)
-                {
-                    if (ptr->ID == p->kolcs)
-                    {
-                        printf("%s",ptr->nev);
-                        return;
-                    }
-                    ptr = ptr->kov;
-                    
-                }
-                
-            }
-            p = p->kov;
-        }
-        printf("\nNincs ilyen könyv!");
-    }
-    else if(tip == 3){
-        printf("Keresés: ");
+    else
+    {
         scanf("%d",&n);
-        while (p != NULL)
-        {
-            if(p->kiadas == n)
-            {
-                printf("\n%s, %s, %d, %s, ",p->cim,p->szerzo,p->kiadas,p->tema);
-                while (ptr != NULL)
-                {
-                    if (ptr->ID == p->kolcs)
-                    {
-                        printf("%s",ptr->nev);
-                        return;
-                    }
-                    ptr = ptr->kov;
-                    
-                }
-                
-            }
-            p = p->kov;
-        }
-
     }
-    else{
-
-        printf("Keresés: ");
-        fgetc(stdin);
-        fgets(kereses, 21, stdin);
-        strcpy(kereses,UjSorKi(kereses));
-        while (p != NULL)
-        {
+    
+    while (p != NULL)
+    {
+        if (tip == 1)
+            strcpy(kisKer,p->cim);
+        else if(tip == 2)
+            strcpy(kisKer,p->szerzo);
+        else if(tip == 4)
             strcpy(kisKer,p->tema);
-            if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0)
-            {
-                printf("\n%s, %s, %d, %s, ",p->cim,p->szerzo,p->kiadas,p->tema);
-                while (ptr != NULL)
-                {
-                    if (ptr->ID == p->kolcs)
-                    {
-                        printf("%s",ptr->nev);
-                        return;
-                    }
-                    ptr = ptr->kov;
-                    
-                }
-                
-            }
-            p = p->kov;
-        }
 
+        if(strcmp(kisbetu(kisKer),kisbetu(kereses))==0 || p->kiadas == n)
+        {
+            printf("\n%s, %s, %d, %s, ",p->cim,p->szerzo,p->kiadas,p->tema);
+            ID_ki(ptr,p->kolcs);
+        }    
+        p = p->kov;
     }
+
 }
 
 void olv_kereses(olvasok *p, konyvek *ptr){
